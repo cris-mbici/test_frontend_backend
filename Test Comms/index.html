@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Frontend to Backend</title>
+</head>
+<body>
+
+    <h1>Send a Word to the Backend</h1>
+    
+    <input type="text" id="wordInput" placeholder="Enter a word">
+    <button onclick="sendToBackend()">Send</button>
+
+    <h2>Response:</h2>
+    <p id="response"></p>
+
+    <script>
+        async function sendToBackend() {
+            let word = document.getElementById("wordInput").value; // Get user input
+
+            let response = await fetch("http://127.0.0.1:5000/process", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ word: word }) // Send data as JSON
+            });
+
+            let result = await response.json(); // Get the response
+            document.getElementById("response").innerText = result.message; // Display it
+        }
+    </script>
+
+</body>
+</html>
